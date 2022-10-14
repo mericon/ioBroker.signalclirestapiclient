@@ -78,6 +78,7 @@
     "main": "main.js",
     "icon": "signalclirestapiclient.png",
     "messagebox": true,
+	"blockly": true,
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/mericon/ioBroker.signalclirestapiclient/main/admin/signalclirestapiclient.png",
     "readme": "https://github.com/mericon/ioBroker.signalclirestapiclient/blob/main/README.md",
