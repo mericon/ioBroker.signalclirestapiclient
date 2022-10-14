@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "signalclirestapiclient",
-    "version": "0.1.0-alpha.0",
+    "version": "0.1.1-alpha.0",
     "news": {
+      "0.1.1-alpha.0": {
+        "en": "Fixing Attachments",
+        "de": "Befestigungen",
+        "ru": "Исправление прикреплений",
+        "pt": "Fixação de anexos",
+        "nl": "Vertaling:",
+        "fr": "Fixation des pièces jointes",
+        "it": "Fissaggio degli allegati",
+        "es": "Fijación de adjuntos",
+        "pl": "Attachment Fixing",
+        "uk": "Фіксація Пристосувань",
+        "zh-cn": "九. 固定的传单"
+      },
       "0.1.0-alpha.0": {
         "en": "initial release",
         "de": "erstausstrahlung",
