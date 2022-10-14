@@ -19,8 +19,9 @@ Client for the Docker Signal-cli Rest API
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.1.2-alpha.0 (2022-10-14)
 * (Carsten) Blockly eingepflegt
+
 ### 0.1.1-alpha.0 (2022-10-14)
 * (Carsten) Fixing Attachments
 

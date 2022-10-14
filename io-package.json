@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "signalclirestapiclient",
-    "version": "0.1.1-alpha.0",
+    "version": "0.1.2-alpha.0",
     "news": {
+      "0.1.2-alpha.0": {
+        "en": "Blockly eingepflegt",
+        "de": "In den Warenkorb",
+        "ru": "Блокально eingepflegt",
+        "pt": "InformÃ¡ticas",
+        "nl": "Blockly eingepflegt",
+        "fr": "Blockly eingepflegt",
+        "it": "Bloccaggio eingepflegt",
+        "es": "Bloqueo eingepflegt",
+        "pl": "Blockly eingepflegt",
+        "uk": "Blockly eingepflegt",
+        "zh-cn": "B. 锁定"
+      },
       "0.1.1-alpha.0": {
         "en": "Fixing Attachments",
         "de": "Befestigungen",
@@ -78,7 +91,7 @@
     "main": "main.js",
     "icon": "signalclirestapiclient.png",
     "messagebox": true,
-	"blockly": true,
+    "blockly": true,
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/mericon/ioBroker.signalclirestapiclient/main/admin/signalclirestapiclient.png",
     "readme": "https://github.com/mericon/ioBroker.signalclirestapiclient/blob/main/README.md",
