@@ -19,6 +19,8 @@ Client for the Docker Signal-cli Rest API
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (Carsten) Blockly eingepflegt
 ### 0.1.1-alpha.0 (2022-10-14)
 * (Carsten) Fixing Attachments
 
@@ -40,6 +42,14 @@ Client for the Docker Signal-cli Rest API
 		sendTo("signalclirestapiclient.0", "send", {
    				"text": 'This is only a test',
    				"numbers": ["+44PHONENUMBER"]
+			});
+
+or with an attachment:
+
+		sendTo("signalclirestapiclient.0", "send", {
+   				"text": 'This is only a test',
+   				"numbers": ["+44PHONENUMBER"],
+				"attachment": path/to/file
 			});
 
 ## License
