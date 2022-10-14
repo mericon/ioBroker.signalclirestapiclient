@@ -167,7 +167,11 @@ class Signalclirestapiclient extends utils.Adapter {
 	onMessage(obj) {
 	 	if (typeof obj === "object" && obj.message) {
 			if (obj.command == "send"){
-				this.sendNewMessage(obj.message.text, obj.message.numbers);
+				if(typeof obj.message.attachment != undefined){
+					this.sendNewMessage(obj.message.text, obj.message.numbers, obj.message.attachment);
+				}else{
+					this.sendNewMessage(obj.message.text, obj.message.numbers);
+				}
 			}
 	 	}
 	}
