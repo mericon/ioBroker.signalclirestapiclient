@@ -2,14 +2,19 @@
 	"i18n": true,
 	"type": "panel",
 	"items": {
-		"option1": {
-			"type": "checkbox",
-			"label": "option1",
+		"serverIP": {
+			"type": "text",
+			"label": "Server IP",
 			"newLine": true
 		},
-		"option2": {
+		"serverPort": {
 			"type": "text",
-			"label": "option2",
+			"label": "Server Port",
+			"newLine": true
+		},
+		"signalNumber": {
+			"type": "text",
+			"label": "Signal Number",
 			"newLine": true
 		}
 	}

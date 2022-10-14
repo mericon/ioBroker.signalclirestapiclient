@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Client for the Docker Signal-cli Rest API",
   "author": {
-    "name": "Carsteb",
+    "name": "carsten",
     "email": "graf.carsten@gmail.com"
   },
   "homepage": "https://github.com/mericon/ioBroker.signalclirestapiclient",
@@ -19,7 +19,10 @@
     "node": ">= 16"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.7"
+    "@iobroker/adapter-core": "^2.6.7",
+    "ws":"^8.9.0",
+    "needle": "^3.1.0"
+
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.5.9",

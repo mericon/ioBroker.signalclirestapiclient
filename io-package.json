@@ -51,6 +51,7 @@
 		"platform": "Javascript/Node.js",
 		"main": "main.js",
 		"icon": "signalclirestapiclient.png",
+		"messagebox": true,
 		"enabled": true,
 		"extIcon": "https://raw.githubusercontent.com/mericon/ioBroker.signalclirestapiclient/main/admin/signalclirestapiclient.png",
 		"readme": "https://github.com/mericon/ioBroker.signalclirestapiclient/blob/main/README.md",
@@ -75,8 +76,9 @@
 		]
 	},
 	"native": {
-		"option1": true,
-		"option2": "42"
+		"serverIP": "192.168.0.1",
+		"serverPort":"8080",
+		"signalNumber": "+495555555"
 	},
 	"objects": [],
 	"instanceObjects": [
@@ -100,6 +102,41 @@
 				"def": false
 			},
 			"native": {}
+		},
+		{
+			"_id": "messages",
+			"type": "channel",
+			"common": {
+				"name": "Nachrichten"
+			},
+			"native": {}
+		},
+		{
+			"_id": "messages.from",
+			"type": "state",
+			"common": {
+				"role": "state",
+				"name": "Device or service connected",
+				"type": "string",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		},
+		{
+			"_id": "messages.message",
+			"type": "state",
+			"common": {
+				"role": "state",
+				"name": "Device or service connected",
+				"type": "string",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
 		}
+
 	]
 }
