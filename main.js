@@ -27,7 +27,7 @@ class Signalclirestapiclient extends utils.Adapter {
 		});
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
-		this.on("message", this.onMessage.bind(this));	
+		this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
 	}
 
@@ -39,28 +39,28 @@ class Signalclirestapiclient extends utils.Adapter {
 
 		ws.on("open", () => {
 			adapter.log.debug("SignalRestAPI Webscocket: Connected");
-			adapter.setState("info.connection", true, true);	
+			adapter.setState("info.connection", true, true);
 		});
 
 		ws.on("error", () => {
 			adapter.log.error("SignalRestAPI Webscocket:  not Connected");
-			adapter.setState("info.connection", false, true);	
+			adapter.setState("info.connection", false, true);
 			adapter.disable();
 		});
 
 		ws.on("message", function message(jsonData) {
-		  
+
 			let parsedJSON = JSON.parse(jsonData.toString()).envelope;
-	
-			if (typeof parsedJSON.dataMessage != "undefined") { 
+
+			if (typeof parsedJSON.dataMessage != "undefined") {
 				let message = parsedJSON.dataMessage.message;
 				let name = parsedJSON.sourceName;
 				handleMsg(name, message);
-			} 
+			}
 		});
 
 		function handleMsg(name, msg) {
-			adapter.log.debug("Neue Nachricht: "+ msg);	
+			adapter.log.debug("Neue Nachricht: "+ msg);
 			adapter.setState("messages.message", msg, true);
 			adapter.setState("messages.from", name, true);
 		}
@@ -80,15 +80,15 @@ class Signalclirestapiclient extends utils.Adapter {
 
 		if(typeof attachment != "undefined"){
 			body_sent =	{   "message": text,
-			"number": "+4915203768526", 
+			"number": "+4915203768526",
 			"recipients": numbers,
 			"base64_attachments": [fs.readFileSync(attachment, "base64")]};
 		} else {
-			body_sent =	{"message": text, 
-			"number": "+4915203768526", 
+			body_sent =	{"message": text,
+			"number": "+4915203768526",
 			"recipients": numbers};
 		}
-						
+
 		needle.post(adapter.config.serverIP+":"+adapter.config.serverPort+"/v2/send", body_sent, options, function(err, resp) {
 			switch(resp.statusCode){
 				case "201":
@@ -104,7 +104,7 @@ class Signalclirestapiclient extends utils.Adapter {
 		});
 	}
 
-		
+
 	/**
 	 * Is called when adapter shuts down - callback has to be called under any circumstances!
 	 * @param {() => void} callback
