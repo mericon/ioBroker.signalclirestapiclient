@@ -50,11 +50,11 @@ class Signalclirestapiclient extends utils.Adapter {
 
 		ws.on("message", function message(jsonData) {
 
-			let parsedJSON = JSON.parse(jsonData.toString()).envelope;
+			const parsedJSON = JSON.parse(jsonData.toString()).envelope;
 
 			if (typeof parsedJSON.dataMessage != "undefined") {
-				let message = parsedJSON.dataMessage.message;
-				let name = parsedJSON.sourceName;
+				const message = parsedJSON.dataMessage.message;
+				const name = parsedJSON.sourceName;
 				handleMsg(name, message);
 			}
 		});
@@ -73,9 +73,9 @@ class Signalclirestapiclient extends utils.Adapter {
 	 * @param {string} [attachment]
 	 */
 	sendNewMessage (text, numbers, attachment) {
-		let body_sent
+		let body_sent;
 		const options = {
-		headers: {"Content-Type": "application/json"}
+			headers: {"Content-Type": "application/json"}
 		};
 
 		if(typeof attachment != "undefined"){
@@ -164,7 +164,7 @@ class Signalclirestapiclient extends utils.Adapter {
 					this.sendNewMessage(obj.message.text, obj.message.numbers);
 				}
 			}
- 		}
+		}
 	}
 }
 
