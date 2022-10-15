@@ -7,11 +7,11 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
-const { writeSync } = require("fs");
+const fs = require("fs");
 const WebSocket = require("ws");
-const adapter = utils.Adapter('signalclirestapiclient');
+const adapter = utils.Adapter("signalclirestapiclient");
 const needle = require("needle");
-var ws = null;
+let ws = null;
 
 // Load your modules here, e.g.:
 
@@ -27,40 +27,38 @@ class Signalclirestapiclient extends utils.Adapter {
 		});
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
-		this.on("message", this.onMessage.bind(this));
+		this.on("message", this.onMessage.bind(this));	
 		this.on("unload", this.onUnload.bind(this));
 	}
-	
+
 	async onReady() {
 		// Initialize your adapter here
-				
 		this.setState("info.connection", false, true);
 
 		ws = new WebSocket("ws://"+adapter.config.serverIP+":"+adapter.config.serverPort+"/v1/receive/"+adapter.config.signalNumber);
-		
-		ws.on('open', () => {
-			adapter.log.debug('SignalRestAPI Webscocket: Connected');
-			adapter.setState("info.connection", true, true);	
-		})
 
-		ws.on('error', () => {
-			adapter.log.error('SignalRestAPI Webscocket:  not Connected');
+		ws.on("open", () => {
+			adapter.log.debug("SignalRestAPI Webscocket: Connected");
+			adapter.setState("info.connection", true, true);	
+		});
+
+		ws.on("error", () => {
+			adapter.log.error("SignalRestAPI Webscocket:  not Connected");
 			adapter.setState("info.connection", false, true);	
 			adapter.disable();
 		});
 
-		ws.on('message', function message(jsonData) {
+		ws.on("message", function message(jsonData) {
 		  
-			var parsedJSON = JSON.parse(jsonData.toString()).envelope;
-			if (typeof parsedJSON.dataMessage != 'undefined') { 
-				var message = parsedJSON.dataMessage.message;
-				var source = parsedJSON.source;
-				var name = parsedJSON.sourceName;
+			let parsedJSON = JSON.parse(jsonData.toString()).envelope;
+	
+			if (typeof parsedJSON.dataMessage != "undefined") { 
+				let message = parsedJSON.dataMessage.message;
+				let name = parsedJSON.sourceName;
 				handleMsg(name, message);
-				} 
-					   
+			} 
 		});
-		  
+
 		function handleMsg(name, msg) {
 			adapter.log.debug("Neue Nachricht: "+ msg);	
 			adapter.setState("messages.message", msg, true);
@@ -75,43 +73,36 @@ class Signalclirestapiclient extends utils.Adapter {
 	 * @param {string} [attachment]
 	 */
 	sendNewMessage (text, numbers, attachment) {
-			var body_sent
-			const options = {
-				headers: {'Content-Type': 'application/json'}
-			};
-		
-			if(typeof attachment != "undefined"){
-				var fs = require('fs');
-        		
-				body_sent =	{   "message": text,
-								"number": "+4915203768526", 
-								"recipients": numbers,
-								"base64_attachments": [fs.readFileSync(attachment, "base64")]
-							};
-			} else {
-				body_sent =	{   "message": text,
-								"number": "+4915203768526", 
-								"recipients": numbers
-							};
-
-			}
-						
-			needle.post(adapter.config.serverIP+":"+adapter.config.serverPort+"/v2/send", body_sent, options, function(err, resp) {
-				switch(resp.statusCode){
-					case "201":
-						adapter.log.debug(resp.statusCode+" Nachricht wurde gesendet.");
-						break;
-					case "400":
-						adapter.log.error(resp.statusCode+" Nachricht konnte nicht gesendet werden!");
-						break;
-					case "500":
-						adapter.log.error(resp.statusCode+" Interner Serverfehler");
-						break;
-				}
-				
-			});
-	
+		let body_sent
+		const options = {
+		headers: {'Content-Type': 'application/json'}
 		};
+
+		if(typeof attachment != "undefined"){
+			body_sent =	{   "message": text,
+			"number": "+4915203768526", 
+			"recipients": numbers,
+			"base64_attachments": [fs.readFileSync(attachment, "base64")]};
+		} else {
+			body_sent =	{"message": text, 
+			"number": "+4915203768526", 
+			"recipients": numbers};
+		}
+						
+		needle.post(adapter.config.serverIP+":"+adapter.config.serverPort+"/v2/send", body_sent, options, function(err, resp) {
+			switch(resp.statusCode){
+				case "201":
+					adapter.log.debug(resp.statusCode+" Nachricht wurde gesendet.");
+				break;
+				case "400":
+					adapter.log.error(resp.statusCode+" Nachricht konnte nicht gesendet werden!");
+				break;
+				case "500":
+					adapter.log.error(resp.statusCode+" Interner Serverfehler");
+				break;
+			}
+		});
+	};
 
 		
 	/**
@@ -165,7 +156,7 @@ class Signalclirestapiclient extends utils.Adapter {
 	}
 
 	onMessage(obj) {
-	 	if (typeof obj === "object" && obj.message) {
+		if (typeof obj === "object" && obj.message) {
 			if (obj.command == "send"){
 				if(typeof obj.message.attachment != undefined){
 					this.sendNewMessage(obj.message.text, obj.message.numbers, obj.message.attachment);
@@ -173,18 +164,17 @@ class Signalclirestapiclient extends utils.Adapter {
 					this.sendNewMessage(obj.message.text, obj.message.numbers);
 				}
 			}
-	 	}
+ 		}
 	}
-
 }
 
 if (require.main !== module) {
-	// Export the constructor in compact mode
-	/**
-	 * @param {Partial<utils.AdapterOptions>} [options={}]
-	 */
+// Export the constructor in compact mode
+/**
+ * @param {Partial<utils.AdapterOptions>} [options={}]
+ */
 	module.exports = (options) => new Signalclirestapiclient(options);
 } else {
-	// otherwise start the instance directly
+// otherwise start the instance directly
 	new Signalclirestapiclient();
 }
