@@ -102,7 +102,7 @@ class Signalclirestapiclient extends utils.Adapter {
 				break;
 			}
 		});
-	};
+	}
 
 		
 	/**
