@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "signalclirestapiclient",
-    "version": "0.1.2-alpha.0",
+    "version": "0.1.3-alpha.0",
     "news": {
+      "0.1.3-alpha.0": {
+        "en": "Changed Icon\nCode Cleanup",
+        "de": "Geänderter Icon\nCode Cleanup",
+        "ru": "Измененный икон\nКод Cleanup",
+        "pt": "Ícone alterado\nLimpeza de código",
+        "nl": "Verander Icon\nCode Cleanup",
+        "fr": "Icon modifié\nNettoyage du code",
+        "it": "Icona modificata\nPulizia del codice",
+        "es": "Cambio de imagen\nCódigo de limpieza",
+        "pl": "Changed Icon\nCode Cleanup",
+        "uk": "Зменена ікона\nОчищення коду",
+        "zh-cn": "变化Icon\n守则"
+      },
       "0.1.2-alpha.0": {
         "en": "Blockly eingepflegt",
         "de": "In den Warenkorb",
