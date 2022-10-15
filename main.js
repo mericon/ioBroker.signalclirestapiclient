@@ -75,31 +75,31 @@ class Signalclirestapiclient extends utils.Adapter {
 	sendNewMessage (text, numbers, attachment) {
 		let body_sent
 		const options = {
-		headers: {'Content-Type': 'application/json'}
+		headers: {"Content-Type": "application/json"}
 		};
 
 		if(typeof attachment != "undefined"){
 			body_sent =	{   "message": text,
-			"number": "+4915203768526",
-			"recipients": numbers,
-			"base64_attachments": [fs.readFileSync(attachment, "base64")]};
+				"number": "+4915203768526",
+				"recipients": numbers,
+				"base64_attachments": [fs.readFileSync(attachment, "base64")]};
 		} else {
 			body_sent =	{"message": text,
-			"number": "+4915203768526",
-			"recipients": numbers};
+				"number": "+4915203768526",
+				"recipients": numbers};
 		}
 
 		needle.post(adapter.config.serverIP+":"+adapter.config.serverPort+"/v2/send", body_sent, options, function(err, resp) {
 			switch(resp.statusCode){
 				case "201":
 					adapter.log.debug(resp.statusCode+" Nachricht wurde gesendet.");
-				break;
+					break;
 				case "400":
 					adapter.log.error(resp.statusCode+" Nachricht konnte nicht gesendet werden!");
-				break;
+					break;
 				case "500":
 					adapter.log.error(resp.statusCode+" Interner Serverfehler");
-				break;
+					break;
 			}
 		});
 	}
@@ -158,7 +158,7 @@ class Signalclirestapiclient extends utils.Adapter {
 	onMessage(obj) {
 		if (typeof obj === "object" && obj.message) {
 			if (obj.command == "send"){
-				if(typeof obj.message.attachment != undefined){
+				if(typeof obj.message.attachment !== "undefined"){
 					this.sendNewMessage(obj.message.text, obj.message.numbers, obj.message.attachment);
 				}else{
 					this.sendNewMessage(obj.message.text, obj.message.numbers);
