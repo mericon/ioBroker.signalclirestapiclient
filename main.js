@@ -11,6 +11,7 @@ const fs = require("fs");
 const WebSocket = require("ws");
 const adapter = utils.Adapter("signalclirestapiclient");
 const needle = require("needle");
+const { Adapter } = require("@iobroker/adapter-core");
 let ws = null;
 
 // Load your modules here, e.g.:
@@ -89,7 +90,15 @@ class Signalclirestapiclient extends utils.Adapter {
 				"recipients": numbers};
 		}
 
-		needle.post(adapter.config.serverIP+":"+adapter.config.serverPort+"/v2/send", body_sent, options, function(err, resp) {
+		needle.post(adapter.config.serverIP+":"+adapter.config.serverPort+"/v2/send", body_sent, options)
+			.then(function(response) {
+				return resp(response);
+			})
+			.catch(function(err){
+				adapter.log.error("Cant send message: "+err);
+			});
+
+		const resp = function(resp) {
 			switch(resp.statusCode){
 				case "201":
 					adapter.log.debug(resp.statusCode+" Nachricht wurde gesendet.");
@@ -101,7 +110,7 @@ class Signalclirestapiclient extends utils.Adapter {
 					adapter.log.error(resp.statusCode+" Interner Serverfehler");
 					break;
 			}
-		});
+		};
 	}
 
 
