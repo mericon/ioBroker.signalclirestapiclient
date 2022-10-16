@@ -82,12 +82,12 @@ class Signalclirestapiclient extends utils.Adapter {
 
 		if(typeof attachment != "undefined"){
 			body_sent =	{   "message": text,
-				"number": "+4915203768526",
+				"number": adapter.config.signalNumber,
 				"recipients": numbers,
 				"base64_attachments": [fs.readFileSync(attachment, "base64")]};
 		} else {
 			body_sent =	{"message": text,
-				"number": "+4915203768526",
+				"number": adapter.config.signalNumber,
 				"recipients": numbers};
 		}
 
