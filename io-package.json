@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "signalclirestapiclient",
-    "version": "0.1.3-alpha.0",
+    "version": "0.1.3-alpha.1",
     "news": {
+      "0.1.3-alpha.1": {
+        "en": "Fix Changed Icon\nFix ESlint errors\nFix Object warnings\nFix message Sending",
+        "de": "Reparieren geänderte Icon\nESlint Fehler beheben\nObjektwarnungen beheben\nNachricht reparieren Senden",
+        "ru": "Исправление Изменено Икона\nИсправление ошибок ESlint\nFix Предупреждения объектов\nFix сообщение Отправка",
+        "pt": "Ícone alterado fixo\nCorrigir erros ESlint\nCorrigir avisos de objetos\nEnviar mensagem de correção",
+        "nl": "Quality over Quantity (QoQ) Releases Vertaling:\nVertaling:\nVertaling:\nVertaling:",
+        "fr": "Correction d'un Icon modifié\nCorrection des erreurs ESlint\nAvertissements d ' objets fixes\nCorrection du message",
+        "it": "Fissare Icona Cambiata\nRisolvere errori ESlint\nRisolvere gli avvisi sugli oggetti\nFissare il messaggio Inviare",
+        "es": "Icono de cambio fijo\nCorregir errores ESlint\nAdvertencias de objetos fijos\nMensaje fijo Enviar",
+        "pl": "Fix Changed Icon (ang.)\nFix ESlint error\nFix Object warning\nStrona internetowa Sending",
+        "uk": "Фіксована ікона\nВиправлення помилок ESlint\nВиправлення попередження об'єктів\nВиправлення повідомлень",
+        "zh-cn": "Fix 改变Icon\nFixESlint错误\n九条物体警告\nFix讯息"
+      },
       "0.1.3-alpha.0": {
         "en": "Changed Icon\nCode Cleanup",
         "de": "Geänderter Icon\nCode Cleanup",
