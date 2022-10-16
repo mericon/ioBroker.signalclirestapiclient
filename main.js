@@ -11,6 +11,7 @@ const fs = require("fs");
 const WebSocket = require("ws");
 const adapter = utils.Adapter("signalclirestapiclient");
 const needle = require("needle");
+// eslint-disable-next-line no-unused-vars
 const { Adapter } = require("@iobroker/adapter-core");
 let ws = null;
 
