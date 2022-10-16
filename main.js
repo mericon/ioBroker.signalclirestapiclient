@@ -69,43 +69,28 @@ class Signalclirestapiclient extends utils.Adapter {
 	}
 
 
-	/**
-	 * @param {string} text
-	 * @param {string[]} [numbers]
-	 * @param {string} [attachment]
-	 */
-	sendNewMessage (text, numbers, attachment) {
-		let body_sent;
+
+	sendNewMessage (path, body_sent) {
+
 		const options = {
 			headers: {"Content-Type": "application/json"}
 		};
 
-		if(typeof attachment != "undefined"){
-			body_sent =	{   "message": text,
-				"number": adapter.config.signalNumber,
-				"recipients": numbers,
-				"base64_attachments": [fs.readFileSync(attachment, "base64")]};
-		} else {
-			body_sent =	{"message": text,
-				"number": adapter.config.signalNumber,
-				"recipients": numbers};
-		}
-
-		needle.post(adapter.config.serverIP+":"+adapter.config.serverPort+"/v2/send", body_sent, options)
+		needle.post(adapter.config.serverIP+":"+adapter.config.serverPort+path, body_sent, options)
 			.then(function(response) {
 				return resp(response);
 			})
 			.catch(function(err){
-				adapter.log.error("Cant send message: "+err);
+				adapter.log.error("Senden der Anfrage fehlgeschlagen: "+err);
 			});
 
 		const resp = function(resp) {
 			switch(resp.statusCode){
 				case "201":
-					adapter.log.debug(resp.statusCode+" Nachricht wurde gesendet.");
+					adapter.log.debug(resp.statusCode+" Anfrage erfolgreich.");
 					break;
 				case "400":
-					adapter.log.error(resp.statusCode+" Nachricht konnte nicht gesendet werden!");
+					adapter.log.error(resp.statusCode+" Anfrage konnte nicht gesendet werden!");
 					break;
 				case "500":
 					adapter.log.error(resp.statusCode+" Interner Serverfehler");
@@ -166,13 +151,34 @@ class Signalclirestapiclient extends utils.Adapter {
 	}
 
 	onMessage(obj) {
+		let body_sent;
 		if (typeof obj === "object" && obj.message) {
-			if (obj.command == "send"){
-				if(typeof obj.message.attachment !== "undefined"){
-					this.sendNewMessage(obj.message.text, obj.message.numbers, obj.message.attachment);
-				}else{
-					this.sendNewMessage(obj.message.text, obj.message.numbers);
-				}
+			switch(obj.command){
+				case "send":
+					if(typeof obj.message.attachment !== "undefined"){
+						body_sent =	{"message": obj.message.text,
+							"number": adapter.config.signalNumber,
+							"recipients": obj.message.numbers,
+							"base64_attachments": [fs.readFileSync(obj.message.attachment, "base64")]};
+					}else{
+						body_sent =	{"message": obj.message.text,
+							"number": adapter.config.signalNumber,
+							"recipients": obj.message.numbers};
+					}
+					this.sendNewMessage("/v2/send",body_sent);
+					break;
+				case "addGroup":
+					break;
+				case "addAdminGroup":
+					break;
+				case "addMemberGroup":
+					break;
+				case "delAdminGroup":
+					break;
+				case "delMemberGroup":
+					break;
+				case "delGroup":
+					break;
 			}
 		}
 	}
