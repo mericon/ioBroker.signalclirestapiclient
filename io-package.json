@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "signalclirestapiclient",
-    "version": "0.1.3-alpha.1",
+    "version": "0.1.3-alpha.2",
     "news": {
+      "0.1.3-alpha.2": {
+        "en": "Changed logic of api calls (in preparation of send to different API endpoints)",
+        "de": "Änderte Logik von api-Anrufen (in Vorbereitung des Sendens an verschiedene API-Endpunkte)",
+        "ru": "Изменена логика апи-звонков (при подготовке отправки в разные точки API)",
+        "pt": "Lógica alterada de chamadas api (em preparação de envio para diferentes terminais API)",
+        "nl": "Veranderde logica van api telefoontjes (in voorbereiding van verzenden naar verschillende API eindpunten)",
+        "fr": "Logique modifiée des appels api (en préparation de l'envoi à différents paramètres API)",
+        "it": "Cambiata logica delle chiamate api (in preparazione di inviare a diversi endpoint API)",
+        "es": "Lógica modificada de llamadas api (en preparación de enviar a diferentes puntos finales de API)",
+        "pl": "Zmienił logikę api (w przygotowaniu do wysyłania do różnych punktów końcowych)",
+        "uk": "Змінена логіка викликів апі (у підготовці відправки в різні кінцеві точки API)",
+        "zh-cn": "装修(准备向不同目标点发送)的改变逻辑"
+      },
       "0.1.3-alpha.1": {
         "en": "Fix Changed Icon\nFix ESlint errors\nFix Object warnings\nFix message Sending",
         "de": "Reparieren geänderte Icon\nESlint Fehler beheben\nObjektwarnungen beheben\nNachricht reparieren Senden",
