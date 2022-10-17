@@ -70,16 +70,14 @@ class Signalclirestapiclient extends utils.Adapter {
 
 
 
-	sendNewMessage (path, body_sent) {
+	sendToAPI (type,path, body_sent) {
 
 		const options = {
 			headers: {"Content-Type": "application/json"}
 		};
 
-		needle.post(adapter.config.serverIP+":"+adapter.config.serverPort+path, body_sent, options)
-			.then(function(response) {
-				return resp(response);
-			})
+		needle(type,adapter.config.serverIP+":"+adapter.config.serverPort+path, body_sent, options)
+			.then((response) => resp(response))
 			.catch(function(err){
 				adapter.log.error("Senden der Anfrage fehlgeschlagen: "+err);
 			});
@@ -165,7 +163,7 @@ class Signalclirestapiclient extends utils.Adapter {
 							"number": adapter.config.signalNumber,
 							"recipients": obj.message.numbers};
 					}
-					this.sendNewMessage("/v2/send",body_sent);
+					this.sendToAPI("post","/v2/send",body_sent);
 					break;
 				case "addGroup":
 					break;
