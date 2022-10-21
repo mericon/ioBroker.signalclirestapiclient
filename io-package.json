@@ -183,6 +183,19 @@
       "native": {}
     },
     {
+      "_id": "info.groups",
+      "type": "state",
+      "common": {
+        "role": "state",
+        "name": "List of groups",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
       "_id": "messages",
       "type": "channel",
       "common": {

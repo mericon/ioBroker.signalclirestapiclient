@@ -13,6 +13,8 @@ const adapter = utils.Adapter("signalclirestapiclient");
 const needle = require("needle");
 // eslint-disable-next-line no-unused-vars
 const { Adapter } = require("@iobroker/adapter-core");
+
+
 let ws = null;
 
 // Load your modules here, e.g.:
@@ -42,6 +44,7 @@ class Signalclirestapiclient extends utils.Adapter {
 		ws.on("open", () => {
 			adapter.log.debug("SignalRestAPI Webscocket: Connected");
 			adapter.setState("info.connection", true, true);
+			this.sendToAPI("get","/v1/groups/"+adapter.config.signalNumber);
 		});
 
 		ws.on("error", () => {
@@ -69,7 +72,21 @@ class Signalclirestapiclient extends utils.Adapter {
 	}
 
 
-
+	sendGroup(gid,obj){
+		adapter.log.debug("GID: "+gid);
+		let body_sent;
+		if(typeof obj.message.attachment !== "undefined"){
+			body_sent =	{"message": obj.message.text,
+				"number": adapter.config.signalNumber,
+				"recipients": [gid],
+				"base64_attachments": [fs.readFileSync(obj.message.attachment, "base64")]};
+		}else{
+			body_sent =	{"message": obj.message.text,
+				"number": adapter.config.signalNumber,
+				"recipients": [gid]};
+		}
+		this.sendToAPI("post","/v2/send",body_sent);
+	}
 	sendToAPI (type,path, body_sent) {
 
 		const options = {
@@ -83,14 +100,23 @@ class Signalclirestapiclient extends utils.Adapter {
 			});
 
 		const resp = function(resp) {
+			//adapter.log.debug(resp.statusCode+ " "+ resp.body.length);
 			switch(resp.statusCode){
-				case "201":
+				case 200:
+				case 201:
 					adapter.log.debug(resp.statusCode+" Anfrage erfolgreich.");
+					if(Array.isArray(resp.body)){
+						if(resp.body[0].id != "undefined"){
+							const groups = {};
+							resp.body.forEach(item => groups[item.name] = item.id);
+							adapter.setState("info.groups", JSON.stringify(groups),true);
+							adapter.log.debug(JSON.stringify(groups));
+						}
+					}
 					break;
-				case "400":
-					adapter.log.error(resp.statusCode+" Anfrage konnte nicht gesendet werden!");
+				case 400:
 					break;
-				case "500":
+				case 500:
 					adapter.log.error(resp.statusCode+" Interner Serverfehler");
 					break;
 			}
@@ -166,6 +192,14 @@ class Signalclirestapiclient extends utils.Adapter {
 					this.sendToAPI("post","/v2/send",body_sent);
 					break;
 				case "addGroup":
+					break;
+				case "getGroups":
+					this.sendToAPI("get","/v1/groups/"+adapter.config.signalNumber);
+					break;
+				case "sendGroup":{
+					// @ts-ignore
+					adapter.getState("info.groups",async  (err, state) => await this.sendGroup(JSON.parse(state.val)[obj.message.group], obj));
+				}
 					break;
 				case "addAdminGroup":
 					break;
