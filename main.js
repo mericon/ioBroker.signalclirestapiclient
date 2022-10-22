@@ -71,22 +71,6 @@ class Signalclirestapiclient extends utils.Adapter {
 		}
 	}
 
-
-	sendGroup(gid,obj){
-		adapter.log.debug("GID: "+gid);
-		let body_sent;
-		if(typeof obj.message.attachment !== "undefined"){
-			body_sent =	{"message": obj.message.text,
-				"number": adapter.config.signalNumber,
-				"recipients": [gid],
-				"base64_attachments": [fs.readFileSync(obj.message.attachment, "base64")]};
-		}else{
-			body_sent =	{"message": obj.message.text,
-				"number": adapter.config.signalNumber,
-				"recipients": [gid]};
-		}
-		this.sendToAPI("post","/v2/send",body_sent);
-	}
 	sendToAPI (type,path, body_sent) {
 
 		const options = {
@@ -100,7 +84,6 @@ class Signalclirestapiclient extends utils.Adapter {
 			});
 
 		const resp = function(resp) {
-			//adapter.log.debug(resp.statusCode+ " "+ resp.body.length);
 			switch(resp.statusCode){
 				case 200:
 				case 201:
@@ -115,6 +98,8 @@ class Signalclirestapiclient extends utils.Adapter {
 					}
 					break;
 				case 400:
+				case 401:
+					adapter.log.error(resp.statusCode + " Fehler bei der Kommunikation mit der API");
 					break;
 				case 500:
 					adapter.log.error(resp.statusCode+" Interner Serverfehler");
@@ -197,8 +182,22 @@ class Signalclirestapiclient extends utils.Adapter {
 					this.sendToAPI("get","/v1/groups/"+adapter.config.signalNumber);
 					break;
 				case "sendGroup":{
-					// @ts-ignore
-					adapter.getState("info.groups",async  (err, state) => await this.sendGroup(JSON.parse(state.val)[obj.message.group], obj));
+					adapter.getState("info.groups",  (err, state) => {
+						// @ts-ignore
+						const gid = JSON.parse(state.val)[obj.message.group];
+						let body_sent;
+						if(typeof obj.message.attachment !== "undefined"){
+							body_sent =	{"message": obj.message.text,
+								"number": adapter.config.signalNumber,
+								"recipients": [gid],
+								"base64_attachments": [fs.readFileSync(obj.message.attachment, "base64")]};
+						}else{
+							body_sent =	{"message": obj.message.text,
+								"number": adapter.config.signalNumber,
+								"recipients": [gid]};
+						}
+						this.sendToAPI("post","/v2/send",body_sent);
+					});
 				}
 					break;
 				case "addAdminGroup":
