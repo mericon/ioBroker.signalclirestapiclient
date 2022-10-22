@@ -177,6 +177,10 @@ class Signalclirestapiclient extends utils.Adapter {
 					this.sendToAPI("post","/v2/send",body_sent);
 					break;
 				case "addGroup":
+					body_sent =	{"name": obj.message.name,
+						"members": [obj.message.member]
+					};
+					this.sendToAPI("post", "/v1/groups/"+adapter.config.signalNumber, body_sent);
 					break;
 				case "getGroups":
 					this.sendToAPI("get","/v1/groups/"+adapter.config.signalNumber);
