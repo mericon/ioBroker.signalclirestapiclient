@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "signalclirestapiclient",
-    "version": "0.1.3-alpha.2",
+    "version": "0.1.4-alpha.0",
     "news": {
+      "0.1.4-alpha.0": {
+        "en": "Add support for Groups (sendGroup, getGroups, addGroup, addAdminGroup, addMemberGroup, delMemberGroup, delAdminGroup, delGroup).",
+        "de": "Unterstützung für Gruppen hinzufügen (sendGroup, getGroups, addGroup, addAdminGroup, addMemberGroup, delMemberGroup, delAdminGroup, delGroup).",
+        "ru": "Добавьте поддержку Группы (sendGroup, getGroups, addGroup, addAdminGroup, addMemberGroup, delMemberGroup, delAdminGroup, delGroup).",
+        "pt": "Adicionar suporte para Grupos (enviarGrupo, getGroups, addGroup, addAdminGroup, addMemberGroup, delMemberGroup, delAdminGroup, delGroup).",
+        "nl": "Applaus voor Groeps (SendGroup, getGroup, toevoegen, AdminGroup, toevoegen, MemberGroup, delMemberGroup, delAdminGroup, delgoroup, delroup.",
+        "fr": "Ajouter le support pour Groupes (sendGroup, getGroups, addGroup, addAdminGroup, addMemberGroup, delMemberGroup, delAdminGroup, delGroup).",
+        "it": "Aggiungi supporto per gruppi (sendGroup, getGroup, addGroup, addAdminGroup, addMemberGroup, delMemberGroup, delAdminGroup, delGroup).",
+        "es": "Añadir soporte para Grupos (sendGroup, getGroups, addGroup, addAdminGroup, addMemberGroup, delMemberGroup, delAdminGroup, delGroup).",
+        "pl": "Addd support for Groups (sendGroup, getGroups, addGroup, addAdminGroup, addMemberGroup, delMemberGroup, delAdminGroup, delGroup).",
+        "uk": "Додати підтримку Групи (sendGroup, GetGroups, addGroup, addAdminGroup, addMemberGroup, delMemberGroup, delAdminGroup, delGroup, delGroup).",
+        "zh-cn": "增加对集团的支持(AdGroup,Liroups,增编,增加AdminGroup,增加MemberGroup, delMemberGroup, del AdminGroup, delGroup)。."
+      },
       "0.1.3-alpha.2": {
         "en": "Changed logic of api calls (in preparation of send to different API endpoints)",
         "de": "Änderte Logik von api-Anrufen (in Vorbereitung des Sendens an verschiedene API-Endpunkte)",
@@ -80,18 +93,6 @@
         "pl": "pierwsze wydanie",
         "uk": "початковий реліз",
         "zh-cn": "初步释放"
-      },
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Начальная версия",
-        "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "zh-cn": "首次出版"
       }
     },
     "title": "Signal-cli Rest-API Client",
