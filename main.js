@@ -205,14 +205,39 @@ class Signalclirestapiclient extends utils.Adapter {
 				}
 					break;
 				case "addAdminGroup":
+					adapter.getState("info.groups",  (err, state) => {
+						// @ts-ignore
+						const gid = JSON.parse(state.val)[obj.message.group];
+						this.sendToAPI("post", "/v1/groups/"+adapter.config.signalNumber+"/"+gid+"/admins", {"admins": [obj.message.admin]});
+					});
 					break;
 				case "addMemberGroup":
+					adapter.getState("info.groups",  (err, state) => {
+					// @ts-ignore
+						const gid = JSON.parse(state.val)[obj.message.group];
+						this.sendToAPI("post", "/v1/groups/"+adapter.config.signalNumber+"/"+gid+"/members", {"members": [obj.message.member]});
+					});
 					break;
 				case "delAdminGroup":
+					adapter.getState("info.groups",  (err, state) => {
+						// @ts-ignore
+						const gid = JSON.parse(state.val)[obj.message.group];
+						this.sendToAPI("delete", "/v1/groups/"+adapter.config.signalNumber+"/"+gid+"/admins", {"admins": [obj.message.admin]});
+					});
 					break;
 				case "delMemberGroup":
+					adapter.getState("info.groups",  (err, state) => {
+						// @ts-ignore
+						const gid = JSON.parse(state.val)[obj.message.group];
+						this.sendToAPI("post", "/v1/groups/"+adapter.config.signalNumber+"/"+gid+"/members", {"members": [obj.message.admin]});
+					});
 					break;
 				case "delGroup":
+					adapter.getState("info.groups",  (err, state) => {
+						// @ts-ignore
+						const gid = JSON.parse(state.val)[obj.message.group];
+						this.sendToAPI("delete", "/v1/groups/"+adapter.config.signalNumber+"/"+gid);
+					});
 					break;
 			}
 		}
