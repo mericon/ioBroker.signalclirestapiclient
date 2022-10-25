@@ -20,7 +20,7 @@ Client for the Docker Signal-cli Rest API
 	### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-* (Carsten) Add support for Groups (sendGroup, getGroups, addGroup, addAdminGroup, addMemberGroup).
+* (Carsten) Add support for Groups (sendGroup, getGroups, addGroup, addAdminGroup, addMemberGroup, delMemberGroup, delAdminGroup, delGroup).
 
 ### 0.1.3-alpha.2 (2022-10-17)
 * (Carsten) Changed logic of api calls (in preparation of send to different API endpoints)
